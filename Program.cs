@@ -1,4 +1,4 @@
-﻿
+
 using EAD_11._12._2025;
 
 List<Materia> materias = new List<Materia>();
@@ -37,22 +37,24 @@ for (int i = 0; i < 5; i++)
     }
     materias.Add(materia);
 }
+Console.WriteLine();
 
 double melhorNota = materias.Max(m => m.Nota);
-var materiasComMelhorNota = materias.Where(m => m.Nota == melhorNota).ToList();
 
-if (materiasComMelhorNota.Count == 1)
+if (materias.Count(m => m.Nota == melhorNota) > 1)
 {
-    Console.WriteLine($"\nA matéria com a melhor nota é {materiasComMelhorNota[0].Nome} com nota {materiasComMelhorNota[0].Nota}.\n");
+    Console.WriteLine("Você teve a melhor nota em mais de uma matéria:");
+    foreach (var materia in materias)
+    {
+        materia.MelhoresNotas(melhorNota);
+    }
+    Console.WriteLine($"com uma nota de {melhorNota}.");
 }
 else
 {
-    Console.WriteLine("\nHouve um empate entre as seguintes matérias com a melhor nota:\n");
-
-    Console.WriteLine("\nMatéria(s) com a melhor nota:\n");
-    foreach (var materia in materiasComMelhorNota)
+    foreach (var materia in materias)
     {
-        Console.WriteLine($"{materia.Nome} - Nota: {materia.Nota}");
+        materia.MelhorNota(melhorNota);
     }
-    Console.WriteLine();
 }
+Console.WriteLine();
